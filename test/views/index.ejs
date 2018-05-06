@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>テスト</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <table id="table" border="1" >  
+          <thead>  
+              <tr>  
+                  <th>name</th>
+                  <th>age</th>
+                  <th>sex</th>
+                  <th>note</th>
+              </tr>
+          </thead>
+           <tbody>
+           <% data.forEach(function (row) { %>
+              <tr>
+                  <td><%= row.name %></td>
+                  <td><%= row.age %></td>
+                  <td><%= row.sex %></td>
+                  <td><%= row.note %></td>
+              </tr>                                   
+           <% }) %>
+           </tbody>
+      </table>   
+  
+  </body>
+</html>

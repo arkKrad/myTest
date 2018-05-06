@@ -1,0 +1,23 @@
+{
+  "dbConfig": {
+    "host": "127.0.0.1",
+    "user": "root",
+    "password": "admin",
+    "database": "test",
+    "dateStrings": "true"
+  },
+  "dbConfig2": {
+    "host": "127.0.0.1",
+    "user": "root",
+    "password": "admin",
+    "database": "test2",
+    "dateStrings": "true"
+  },
+  "dbConfig3": {
+    "host": "127.0.0.1",
+    "user": "root",
+    "password": "admin",
+    "database": "test3",
+    "dateStrings": "true"
+  }
+}
