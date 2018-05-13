@@ -19,5 +19,10 @@
     "password": "admin",
     "database": "test3",
     "dateStrings": "true"
+  },
+  "redisConfig": {
+    "host": "127.0.0.1",
+    "port": "6379",
+    "password": "admin"
   }
 }

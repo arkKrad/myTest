@@ -11,6 +11,7 @@ let router = express.Router();
 
 let query = 'SELECT * FROM content';
 let result;
+var id = '';
 
 // 1.一般のコネクション取得
 // コネクション取得
@@ -19,14 +20,15 @@ async function main() {
 
     result = await db.get(query, []);
 
-    console.log(result);
+    // console.log(result);
 
     router.get("/", function(req, res, next) {
     // console.dir('result: ' + result);
 
-        res.render("index3", { 
+        res.render("index_s", { 
             data: result,
-            title: 'indexS テスト'
+            title: 'indexS テスト',
+            id: id
         });
     });
 }
