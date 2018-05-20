@@ -5,13 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users');
 
 // var mysql = require('./common/contest');
 // DB接続
 // mysql.connect();
 // var indexRouter2 = require('./routes/index4');
-var indexRouter2 = require('./routes/index8');
+// var indexRouter2 = require('./routes/index8');
+var indexRouter2 = require('./routes/index_s');
+var searchRouter = require('./routes/search');
 
 var app = express();
 
@@ -26,9 +28,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter2);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
-// app.use('/index', indexRouter2);
+app.use('/index', indexRouter2);
+
+// cassandra_test
+var cassandraRouter = require('./routes/cassandra_logic');
+app.use('/cassandra', cassandraRouter);
+
+// redis test
+var redisRouter = require('./routes/redis_logic');
+app.use('/redis', redisRouter);
+
+// search test
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

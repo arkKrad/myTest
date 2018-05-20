@@ -11,15 +11,9 @@ module.exports = {
 
     // コネクション接続
     connect: async function() {
-        this.connection = await mySql.createConnection(config.get('dbConfig'));
 
-        await this.connection.connect(function(err) {
-            if (err) {
-                console.error('error connecting: ' + err.stack);
-                this.errorHandler(err);
-            }
-        });
-        console.log('connected as id ' + this.connection);
+        this.connection = await handle(this.connection)
+        console.log('connected as id ', this.connection);
     },
 
     // connectPool: function() {
@@ -95,12 +89,12 @@ module.exports = {
     get: async function(query, params) {
         let self = this;
 
+        // コネクションチェック
+        if (self.connection === null && typeof self.connection === "undefined") {
+            self.connection = connect();
+        }
+
         console.log('query exec');
-        // self.connection.query(query, params, function(err, rows) {
-        //     self.errorHandler(err);
-        //     console.log('query result: ' + rows);
-        //     return rows;
-        // });
         const result = await promisify(this.connection.query).bind(this.connection)(query,params);
         return result;
     },
@@ -116,6 +110,29 @@ module.exports = {
         this.connection.release();
         console.dir('Connection release: ' + this.connection);
         // con.end();
+    },
+
+    // コネクション制御
+    handle: async function handleConnect(con) {
+        con = await mySql.createConnection(config.get('dbConfig'));
+        await con.connect(function(err) {
+            if (err) {
+                console.error('error connecting: ' ,err.stack);
+                setTimeout(handleConnect(con), 2000);
+            }
+        });
+
+        connection.on('error', function(err) {
+            console.log('db error', err);
+            if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+                console.log('コネクションが失われたので再接続します');
+                handleConnect(con);                        
+            } else {                                     
+                throw err;
+            }
+        });
+
+        return con;
     }
 
 };

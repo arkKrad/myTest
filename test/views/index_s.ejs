@@ -42,5 +42,73 @@
       <% }); %>
     </table>
 
+    <br>
+    <br>
+    <br>
+
+    <<style>
+    table {
+      border-collapse: collapse;
+      width: 500px;
+    }
+     
+    th,td {
+      border: solid 1px #ccc;
+      padding: 5px;
+    }
+    </style>
+    <label>表示実験用</label>
+    <table border='1'>
+    <% for(var i = 0; i < test.length; i++) { %>
+      <% var row = test[i] %>
+      <thead>
+      <% Object.keys(row).forEach(function (key) { %>
+      <%             if (row[key] !== null && typeof row[key] !== 'undefined' && typeof row[key] !== 'boolean') { %>
+      <th> <%= key %> </th>
+      <%             } %>
+      <% })%>
+      </thead>
+      <tbody>
+      <% Object.keys(row).forEach(function (key) { %>
+      <%             if (row[key] !== null && typeof row[key] !== 'undefined') { %>
+      <%              if (typeof row[key] === 'object') { %>
+      <%                 if (row[key] instanceof Array) { %>
+      <td>
+      <%                     row[key].forEach(val => { %>
+      - <%=                         val %><br>
+      <%                     }); %>
+      </td>
+      <%                 } else { %>
+      <td>
+      <div>
+      <%                      Object.keys(row[key]).forEach( function(val) { %>
+      <%=                         val %>
+      <%= ': '  %>
+      <%=                         row[key][val] %>
+      <%                     }); %>
+      </div>
+      </td>
+      <%                 } %>
+      <%              }  else { %>
+      <%                  if (typeof row[key] !== 'boolean') { %>
+      <td>
+      <%                     row[key].toString().split(',').forEach( function(val) { %>
+      <%                       if (row[key].toString().split(',').length !== 0 && row[key].toString().split(',').length === 1) { %>
+      <%#                         if (row[key].toString().split(',').length === 1) { %>      
+      <%=                          val %>
+      <%#                         } %>
+      <%                       } else { %>
+      - <%=                       val %><br>
+      <%                       } %>
+      <%                     }); %>
+      </td>
+      <%                  } %>
+      <%              } %>
+      <%             } %>
+      <% })%>
+    <% } %>
+    </tbody>
+    </table>
+
   </body>
 </html>
