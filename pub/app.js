@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 
 var testRouter = require('./routes/ddee');
 
+var dbRouter = require('./routes/db_test');
+
 var app = express();
 
 // view engine setup
@@ -21,9 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// process.on('unhandledRejection', console.log)
+
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/u', usersRouter);
+
+app.use('/db', dbRouter);
 
 app.use('/test', testRouter);
 

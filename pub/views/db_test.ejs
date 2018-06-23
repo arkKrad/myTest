@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form method="POST" action="./search">
+      <input type="text" name="id" value="<%=id %>" />
+      <input type="reset" value"クリア" />
+      <input type="submit" />
+    </form>
+    <table border='1'>
+      <thead>
+        <th>content_id</th>
+        <th>channel_id</th>
+        <th>content_name</th>
+        <th>colmun</th>
+        <th>note</th>
+        <th>create_user</th>
+        <th>create_date</th>
+        <th>update_user</th>
+        <th>update_date</th>      
+      </thead>
+      <% data.forEach(function(row) { %>
+      <%# for(var i = 0; i < data.length; i++) %>
+      <%# var row = data[i] %>
+      <%#= console.log(row) %>
+      <tbody>
+        <td><%= row.content_id %></td>
+        <td><%= row.channel_id %></td>
+        <td><%= row.content_name %></td>
+        <td><%= row.colmun %></td>
+        <td><%= row.note %></td>
+        <td><%= row.create_user %></td>
+        <td><%= row.create_date %></td>
+        <td><%= row.update_user %></td>
+        <td><%= row.update_date %></td>
+        </tbody>
+      <% }); %>
+    </table>
+
+    <br>
+    <br>
+    <br>
+
+    <<style>
+    table {
+      border-collapse: collapse;
+      width: 500px;
+    }
+     
+    th,td {
+      border: solid 1px #ccc;
+      padding: 5px;
+    }
+    </style>
+    <label>表示実験用</label>
+    <table border='1'>
+    <% for(var i = 0; i < test.length; i++) { %>
+      <% var row = test[i] %>
+      <thead>
+      <% Object.keys(row).forEach(function (key) { %>
+      <%             if (row[key] !== null && typeof row[key] !== 'undefined' && typeof row[key] !== 'boolean') { %>
+      <th> <%= key %> </th>
+      <%             } %>
+      <% })%>
+      </thead>
+      <tbody>
+      <% Object.keys(row).forEach(function (key) { %>
+      <%             if (row[key] !== null && typeof row[key] !== 'undefined') { %>
+      <%              if (typeof row[key] === 'object') { %>
+      <%                 if (row[key] instanceof Array) { %>
+      <td>
+      <%                     row[key].forEach(val => { %>
+      - <%=                         val %><br>
+      <%                     }); %>
+      </td>
+      <%                 } else { %>
+      <td>
+      <div>
+      <%                      Object.keys(row[key]).forEach( function(val) { %>
+      <%=                         val %>
+      <%= ': '  %>
+      <%=                         row[key][val] %>
+      <%                     }); %>
+      </div>
+      </td>
+      <%                 } %>
+      <%              }  else { %>
+      <%                  if (typeof row[key] !== 'boolean') { %>
+      <td>
+      <%                     row[key].toString().split(',').forEach( function(val) { %>
+      <%                       if (row[key].toString().split(',').length !== 0 && row[key].toString().split(',').length === 1) { %>
+      <%#                         if (row[key].toString().split(',').length === 1) { %>      
+      <%=                          val %>
+      <%#                         } %>
+      <%                       } else { %>
+      - <%=                       val %><br>
+      <%                       } %>
+      <%                     }); %>
+      </td>
+      <%                  } %>
+      <%              } %>
+      <%             } %>
+      <% })%>
+    <% } %>
+    </tbody>
+    </table>
+
+  </body>
+</html>

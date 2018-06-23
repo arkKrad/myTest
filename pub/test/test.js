@@ -3,6 +3,10 @@ var app = require('../app');
 
 var chai = require('chai');
 var assert = chai.assert;
+var sinon = require('sinon')
+var config = require('config')
+
+var stub = sinon.createSandbox()
 
 describe('テスト1', function(){
   it('ケース1', async function () {
@@ -13,6 +17,11 @@ describe('テスト1', function(){
       * 3.expect 想定するレスポンスステータスの判定、想定通り出ないならエラーを投げる
       *
       */
+
+      // stub setting
+      stub = sinon.stub(config, 'get')
+      stub.returns('is a stub')
+
       let result = await request(app)
       .get('/users')
       .query({ val: 'Test1' })
