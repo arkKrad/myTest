@@ -1,0 +1,25 @@
+var arr = new Array();
+
+arr.push(12559);
+arr.push(12559);
+arr.push(12559);
+arr.push(12559);
+arr.push(12559);
+arr.push(12560);
+arr.push(12561);
+
+// const result = arr.filter(arr => 12559);
+// var result = Array.from(new Set(arr));
+var arr2 = Array.from(new Set(arr));
+
+var val = 12559;
+
+var idx = arr2.indexOf(val);
+if(idx >= 0){
+ arr2.splice(idx, 1); 
+}
+ 
+
+console.log(arr);
+console.log(arr2);
+
